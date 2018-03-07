@@ -53,7 +53,7 @@ public class Hangman {
         String letters = new String("");
 
         for (int i = 0; i < game.correctChars.length; i++) {
-            if (i == game.correctChars - 1) {
+            if (i == game.correctChars.length - 1) {
                 letters += game.correctChars[i];
             } else {
                 letters += game.correctChars[i] + " ";
@@ -74,11 +74,13 @@ public class Hangman {
         String triedChars = new String();
 
         for (int i = 0; i < wrongChars.length; i++) {
-            if (i == wrongChars.length - 1) {
-                triedChars += wrongChars[i];
-            } else {
-                triedChars += wrongChars[i] + ",";
-            }
+            if (wrongChard[i] != '\u0000') {
+                if (i == wrongChars.length - 1) {
+                    triedChars += wrongChars[i];
+                } else {
+                    triedChars += wrongChars[i] + ",";
+                }  
+            }  
         }
 
         lives[tries] = lives[tries].replace("<guessed>", triedChars);
