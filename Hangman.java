@@ -41,7 +41,7 @@ public class Hangman {
         game.pickedWord = pickWord("dictionary.txt");
         game.correctChars = new char[game.pickedWord.length()];
         for (int i = 0; i < game.correctChars.length; i++) {
-            game.correctChars[i] = "_";
+            game.correctChars[i] = '_';
         }
         game.tries = 7;
         //System.out.println(game.pickedWord);
