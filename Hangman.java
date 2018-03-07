@@ -34,7 +34,7 @@ public class Hangman {
         Hangman game = new Hangman();
         switch (chosenMenu) {
         case 1:
-            game();
+            game(game);
             break;
         case 2:
             System.exit(0);
@@ -63,7 +63,7 @@ public class Hangman {
     }
 
     private static void game(Hangman game) {
-        game.pickedWord = pickWord("dictionary.txt");
+        game.pickedWord = pickWord("dictionary.txt").toUpperCase();
         game.correctChars = new char[game.pickedWord.length()];
         for (int i = 0; i < game.correctChars.length; i++) {
             game.correctChars[i] = '_';
@@ -72,7 +72,7 @@ public class Hangman {
         while (true) {
             renderField(game);
             System.out.println("Your letter: ");
-            String guessedChar = userInput.next();
+            String guessedChar = userInput.next().toUpperCase();
             if (Character.isLetter(guessedChar.charAt(0))) {
                 if (!(new String(game.wrongChars).contains(guessedChar))
                         && !(new String(game.correctChars).contains(guessedChar))) {
@@ -100,6 +100,7 @@ public class Hangman {
     }
 
     private static void checkCharInput(String input, Hangman game) {
+        input.toUpperCase();
         if (input.length() > 1) {
             guessWord(input, game);
         } else {
