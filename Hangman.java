@@ -88,13 +88,13 @@ public class Hangman {
 
     private static void checkCharInput(String input, Hangman game) {
         if (input.length() > 1) {
-            guessWord(input, game.pickedWord);
+            guessWord(input, game);
         } else {
             if (game.pickedWord.contains(input)) {
                 for (int i = 0; i < game.pickedWord.length(); i++) {
                     if (game.pickedWord.charAt(i) == input.charAt(0)) {
                         game.correctChars[i] = input.charAt(0);
-                        checkWin(game.correctChars, game.pickedWord);
+                        checkWin(game);
                     }
                 }
             } else {
@@ -114,21 +114,21 @@ public class Hangman {
         }
     }
 
-    private static void guessWord(String input, String pickedWord) {
-        if (input.equals(pickedWord)) {
-            System.out.println("YES word!!!");
+    private static void guessWord(String input, Hangman game) {
+        if (input.equals(game.pickedWord)) {
+            renderField(game);
             main(new String[]{});
         } else {
-            System.out.println("NO word!!!");
+            game.tries = 0;            
+            renderField(game);
             main(new String[]{});
         }
     }
 
-    private static void checkWin(char[] correctChars, String pickedWord) {
-        String guessedWord = Stream.of(correctChars).map(e -> new String(e)).collect(Collectors.joining());
-
-        if (guessedWord.equals(pickedWord)) {
-            System.out.println("YES!!!");
+    private static void checkWin(Hangman game) {
+        String guessedWord = Stream.of(game.correctChars).map(e -> new String(e)).collect(Collectors.joining());
+        if (guessedWord.equals(game.pickedWord)) {
+            renderField(game);
             main(new String[]{});
         }
     }
