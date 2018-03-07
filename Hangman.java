@@ -39,10 +39,13 @@ public class Hangman {
         Hangman game = new Hangman();
         game.pickedWord = pickWord("dictionary.txt");
         game.correctChars = new char[game.pickedWord.length()];
-        //System.out.println(game.pickedWord);
-        check_char_input("a", game.pickedWord, game.correctChars, game.wrongChars);
-        //System.out.println(Arrays.toString(game.correctChars));
-        //System.out.println(Arrays.toString(game.wrongChars));
+        System.out.println(game.pickedWord);
+        while(true){
+            // String guessedChar = userInput.next();
+            check_char_input(guessedChar, game.pickedWord, game.correctChars, game.wrongChars);
+            // System.out.println(Arrays.toString(game.correctChars));
+            // System.out.println(Arrays.toString(game.wrongChars));
+        }
     }
 
     private static void displayLeaderboards() {
@@ -85,5 +88,5 @@ public class Hangman {
             }
         }
     }
- 
+
 }
