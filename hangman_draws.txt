@@ -4,8 +4,8 @@
 | |/ /       ||
 | | /        ||.-''.
 | |/         |/  _  \
-| |          ||  `/,|                                  Tries Left:<lives>
-| |          (\\`_.'                                   Guessed characters:<guessed>
+| |          ||  `/,|                                  Tries Left: $[31m<lives>$[0;0m
+| |          (\\`_.'                                   Wrong characters: $[31m<guessed>$[0;0m
 | |         .-`--'.
 | |        /Y . . Y\
 | |       // |   | \\
@@ -28,8 +28,8 @@
 | |/ /       ||
 | | /        ||.-''.
 | |/         |/  _  \
-| |          ||  `/,|                                  Tries Left:<lives>
-| |          (\\`_.'                                   Guessed characters:<guessed>
+| |          ||  `/,|                                  Tries Left: $[31m<lives>$[0;0m
+| |          (\\`_.'                                   Wrong characters: $[31m<guessed>$[0;0m
 | |         .-`--'.
 | |        /Y . . Y\
 | |       // |   | \\
@@ -52,8 +52,8 @@
 | |/ /       ||
 | | /        ||.-''.
 | |/         |/  _  \
-| |          ||  `/,|                                  Tries Left:<lives>
-| |          (\\`_.'                                   Guessed characters:<guessed>
+| |          ||  `/,|                                  Tries Left: $[31m<lives>$[0;0m
+| |          (\\`_.'                                   Wrong characters: $[31m<guessed>$[0;0m
 | |         .-`--'.
 | |        /Y . . Y\
 | |       // |   | \\
@@ -76,8 +76,8 @@
 | |/ /       ||
 | | /        ||.-''.
 | |/         |/  _  \
-| |          ||  `/,|                                  Tries Left:<lives>
-| |          (\\`_.'                                   Guessed characters:<guessed>
+| |          ||  `/,|                                  Tries Left: $[33m<lives>$[0;0m
+| |          (\\`_.'                                   Wrong characters: $[31m<guessed>$[0;0m
 | |         .-`--'.
 | |        /Y . . Y\
 | |       // |   | \\
@@ -87,7 +87,7 @@
 | |                                                    <letters>
 | |
 | |
-| |         
+| |
 | |"""""""""""""""""""|"|
 | |"""""""""""""""""""|"|
 | |                   | |
@@ -100,8 +100,8 @@
 | |/ /       ||
 | | /        ||.-''.
 | |/         |/  _  \
-| |          ||  `/,|                                  Tries Left:<lives>
-| |          (\\`_.'                                   Guessed characters:<guessed>
+| |          ||  `/,|                                  Tries Left: $[33m<lives>$[0;0m
+| |          (\\`_.'                                   Wrong characters: $[31m<guessed>$[0;0m
 | |           `--'.
 | |          |. . Y\
 | |          |   | \\
@@ -124,8 +124,8 @@
 | |/ /       ||
 | | /        ||.-''.
 | |/         |/  _  \
-| |          ||  `/,|                                  Tries Left:<lives>
-| |          (\\`_.'                                   Guessed characters:<guessed>
+| |          ||  `/,|                                  Tries Left: $[33m<lives>$[0;0m
+| |          (\\`_.'                                   Wrong characters: $[31m<guessed>$[0;0m
 | |          -`--'
 | |          |. .|
 | |          |   |
@@ -148,8 +148,8 @@
 | |/ /       ||
 | | /        ||.-''.
 | |/         |/  _  \
-| |          ||  `/,|                                  Tries Left:<lives>
-| |          (\\`_.'                                   Guessed characters:<guessed>
+| |          ||  `/,|                                  Tries Left: $[32m<lives>$[0;0m
+| |          (\\`_.'                                   Wrong characters: $[31m<guessed>$[0;0m
 | |           `--'
 | |
 | |
@@ -172,22 +172,20 @@
 | |/ /
 | | /
 | |/
-| |                                                     Tries Left:<lives>
-| |                                                     Guessed characters:<guessed>
+| |                                                     Tries Left: $[32m<lives>$[0;0m
+| |                                                     Wrong characters: $[31m<guessed>$[0;0m
 | |
 | |
-| |      
-| |      
-| |     
+| |
+| |
+| |
 | |
 | |                                                     <letters>
 | |
 | |
-| |         
+| |
 | |"""""""""""""""""""|"|
 | |"""""""""""""""""""|"|
 | |                   | |
 : :                   : :
 . .                   . .
-
-

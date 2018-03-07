@@ -16,19 +16,24 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.FileReader;
+import com.codecool.termlib.Attribute;
+import com.codecool.termlib.Terminal;
+import com.codecool.termlib.Color;
 
 public class Hangman {
     char[] wrongChars = new char[7];
     char[] correctChars;
     String pickedWord;
     int tries;
+    static Terminal terminalCustomize = new Terminal();
     static Scanner userInput = new Scanner(System.in);
 
     public static void main(String[] args) {
         int chosenMenu = displayMenu();
+        Hangman game = new Hangman();
         switch (chosenMenu) {
             case 1:
-                game();
+                game(game);
                 break;
             case 2:
                 System.exit(0);
@@ -44,15 +49,13 @@ public class Hangman {
         return chosenMenuPoint;
     }
 
-    private static void game() {
-        Hangman game = new Hangman();
+    private static void game(Hangman game) {
         game.pickedWord = pickWord("dictionary.txt");
         game.correctChars = new char[game.pickedWord.length()];
         for (int i = 0; i < game.correctChars.length; i++) {
             game.correctChars[i] = '_';
         }
         game.tries = 7;
-        //System.out.println(game.pickedWord);
         while (true) {
             renderField(game);
             System.out.println("Your letter: ");
@@ -119,7 +122,7 @@ public class Hangman {
             renderField(game);
             main(new String[]{});
         } else {
-            game.tries = 0;            
+            game.tries = 0;
             renderField(game);
             main(new String[]{});
         }
@@ -134,6 +137,7 @@ public class Hangman {
     }
 
     private static void renderField(Hangman game) {
+        terminalCustomize.clearScreen();
         String levels = new String("");
         int tries = game.tries;
         char[] wrongChars = game.wrongChars;
@@ -165,15 +169,15 @@ public class Hangman {
                 if (i == wrongChars.length - 1) {
                     triedChars += wrongChars[i];
                 } else {
-                    triedChars += wrongChars[i] + ",";
+                    triedChars += wrongChars[i] + ", ";
                 }
             }
         }
 
         lives[tries] = lives[tries].replace("<guessed>", triedChars);
         lives[tries] = lives[tries].replace("<lives>", Integer.toString(tries));
+        lives[tries] = lives[tries].replace("$".charAt(0), (char)27);
         lives[tries] = lives[tries].replace("<letters>", letters);
-
         System.out.println(lives[tries]);
     }
 }
