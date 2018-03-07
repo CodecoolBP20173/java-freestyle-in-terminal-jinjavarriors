@@ -41,10 +41,10 @@ public class Hangman {
         game.correctChars = new char[game.pickedWord.length()];
         System.out.println(game.pickedWord);
         while(true){
-            // String guessedChar = userInput.next();
-            check_char_input(guessedChar, game.pickedWord, game.correctChars, game.wrongChars);
-            // System.out.println(Arrays.toString(game.correctChars));
-            // System.out.println(Arrays.toString(game.wrongChars));
+            String guessedChar = userInput.next();
+            checkCharInput(guessedChar, game.pickedWord, game.correctChars, game.wrongChars);
+            System.out.println(Arrays.toString(game.correctChars));
+            System.out.println(Arrays.toString(game.wrongChars));
         }
     }
 
@@ -64,18 +64,15 @@ public class Hangman {
 
     }
 
-    private static void check_char_input(String input, String pickedWord, char[] correctChars, char[] wrongChars) {
+    private static void checkCharInput(String input, String pickedWord, char[] correctChars, char[] wrongChars) {
         if (input.length() > 1) {
-            if (input == pickedWord) {
-                System.out.println("YES!!!");
-            } else {
-                System.out.println("NO!!!");
-            }
+            guessWord(input, pickedWord);
         } else {
             if (pickedWord.contains(input)) {
                 for (int i = 0; i < pickedWord.length(); i++) {
                     if (pickedWord.charAt(i) == input.charAt(0)) {
                         correctChars[i] = input.charAt(0);
+                        checkWin(correctChars, pickedWord);
                     }
                 }
             } else {
@@ -88,5 +85,24 @@ public class Hangman {
             }
         }
     }
+    
+    private static void guessWord(String input, String pickedWord) {
+        System.out.println(input);
+        System.out.println(pickedWord);
+        if (input.equals(pickedWord)) {
+            System.out.println("YES word!!!");
+        } else {
+            System.out.println("NO word!!!");
+        }
+    }
 
+    private static void checkWin(char[] correctChars, String pickedWord) {
+        String guessedWord = Stream.of(correctChars).map(e->new String(e)).collect(Collectors.joining());
+
+        if (guessedWord.equals(pickedWord)) {
+            System.out.println("YES!!!");
+        } else {
+            System.out.println("NO!!!");
+        }
+    }
 }
