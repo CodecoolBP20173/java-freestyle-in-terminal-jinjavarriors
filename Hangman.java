@@ -27,10 +27,6 @@ public class Hangman {
         }
     }
 
-    private static int changeTries(int tries) {
-        return --tries;
-    }
-
     private static int displayMenu() {
         System.out.println("Welcome in Hangman game!");
         System.out.println("Choose a menupoint:");
@@ -46,7 +42,7 @@ public class Hangman {
         game.correctChars = new char[game.pickedWord.length()];
         game.tries = 7;
         System.out.println(game.pickedWord);
-        while(true){
+        while (true) {
             String guessedChar = userInput.next();
             checkCharInput(guessedChar, game);
             System.out.println(Arrays.toString(game.correctChars));
@@ -93,7 +89,7 @@ public class Hangman {
             }
         }
     }
-    
+
     private static void guessWord(String input, String pickedWord) {
         System.out.println(input);
         System.out.println(pickedWord);
@@ -105,7 +101,7 @@ public class Hangman {
     }
 
     private static void checkWin(char[] correctChars, String pickedWord) {
-        String guessedWord = Stream.of(correctChars).map(e->new String(e)).collect(Collectors.joining());
+        String guessedWord = Stream.of(correctChars).map(e -> new String(e)).collect(Collectors.joining());
 
         if (guessedWord.equals(pickedWord)) {
             System.out.println("YES!!!");
