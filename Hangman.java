@@ -23,7 +23,7 @@ public class Hangman {
             game();
             break;
         case 2:
-            return;
+            System.exit(0);
         }
     }
 
@@ -41,12 +41,16 @@ public class Hangman {
         game.pickedWord = pickWord("dictionary.txt");
         game.correctChars = new char[game.pickedWord.length()];
         game.tries = 7;
-        System.out.println(game.pickedWord);
+        //System.out.println(game.pickedWord);
         while (true) {
             String guessedChar = userInput.next();
-            checkCharInput(guessedChar, game);
-            System.out.println(Arrays.toString(game.correctChars));
-            System.out.println(Arrays.toString(game.wrongChars));
+            if (!(new String(game.wrongChars).contains(guessedChar)) && !(new String(game.correctChars).contains(guessedChar))) {
+                checkCharInput(guessedChar, game);
+                System.out.println(Arrays.toString(game.correctChars));
+                System.out.println(Arrays.toString(game.wrongChars));
+            } else {
+                System.out.println("Character already used, please input another!");
+            }
         }
     }
 
@@ -82,7 +86,11 @@ public class Hangman {
                     if (game.wrongChars[i] == '\u0000') {
                         game.wrongChars[i] = input.charAt(0);
                         game.tries--;
-                        System.out.println(game.tries);
+                        System.out.println("Tries left: " + game.tries);
+                        if (game.tries == 0) {
+                            System.out.println("GAME OVER");
+                            main(new String[]{});
+                        }
                         break;
                     }
                 }
@@ -91,12 +99,12 @@ public class Hangman {
     }
 
     private static void guessWord(String input, String pickedWord) {
-        System.out.println(input);
-        System.out.println(pickedWord);
         if (input.equals(pickedWord)) {
             System.out.println("YES word!!!");
+            main(new String[]{});
         } else {
             System.out.println("NO word!!!");
+            main(new String[]{});
         }
     }
 
@@ -105,8 +113,7 @@ public class Hangman {
 
         if (guessedWord.equals(pickedWord)) {
             System.out.println("YES!!!");
-        } else {
-            System.out.println("NO!!!");
+            main(new String[]{});
         }
     }
 }
