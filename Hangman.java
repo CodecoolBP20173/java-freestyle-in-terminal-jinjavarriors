@@ -13,6 +13,7 @@ public class Hangman {
     char[] wrongChars = new char[7];
     char[] correctChars;
     String pickedWord;
+    int tries;
     static Scanner userInput = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -24,6 +25,10 @@ public class Hangman {
         case 2:
             return;
         }
+    }
+
+    private static int changeTries(int tries) {
+        return --tries;
     }
 
     private static int displayMenu() {
@@ -39,10 +44,11 @@ public class Hangman {
         Hangman game = new Hangman();
         game.pickedWord = pickWord("dictionary.txt");
         game.correctChars = new char[game.pickedWord.length()];
+        game.tries = 7;
         System.out.println(game.pickedWord);
         while(true){
             String guessedChar = userInput.next();
-            checkCharInput(guessedChar, game.pickedWord, game.correctChars, game.wrongChars);
+            checkCharInput(guessedChar, game);
             System.out.println(Arrays.toString(game.correctChars));
             System.out.println(Arrays.toString(game.wrongChars));
         }
@@ -64,21 +70,23 @@ public class Hangman {
 
     }
 
-    private static void checkCharInput(String input, String pickedWord, char[] correctChars, char[] wrongChars) {
+    private static void checkCharInput(String input, Hangman game) {
         if (input.length() > 1) {
-            guessWord(input, pickedWord);
+            guessWord(input, game.pickedWord);
         } else {
-            if (pickedWord.contains(input)) {
-                for (int i = 0; i < pickedWord.length(); i++) {
-                    if (pickedWord.charAt(i) == input.charAt(0)) {
-                        correctChars[i] = input.charAt(0);
-                        checkWin(correctChars, pickedWord);
+            if (game.pickedWord.contains(input)) {
+                for (int i = 0; i < game.pickedWord.length(); i++) {
+                    if (game.pickedWord.charAt(i) == input.charAt(0)) {
+                        game.correctChars[i] = input.charAt(0);
+                        checkWin(game.correctChars, game.pickedWord);
                     }
                 }
             } else {
-                for (int i = 0; i < wrongChars.length; i++) {
-                    if (wrongChars[i] == '\u0000') {
-                        wrongChars[i] = input.charAt(0);
+                for (int i = 0; i < game.wrongChars.length; i++) {
+                    if (game.wrongChars[i] == '\u0000') {
+                        game.wrongChars[i] = input.charAt(0);
+                        game.tries--;
+                        System.out.println(game.tries);
                         break;
                     }
                 }
