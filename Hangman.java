@@ -1,4 +1,19 @@
 import java.util.Scanner;
+import java.io.Reader;
+import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.Arrays;
+import java.util.Random;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.FileReader;
 
 public class Hangman {
     static Scanner userInput = new Scanner(System.in);
@@ -12,6 +27,8 @@ public class Hangman {
         case 2:
             return;
         }
+
+        renderField();
     }
 
     private static int displayMenu() {
@@ -27,5 +44,21 @@ public class Hangman {
     }
 
     private static void displayLeaderboards() {
+    }
+
+    private static void renderField() {
+        String levels = new String("");
+        try (BufferedReader br = new BufferedReader(new FileReader("hangman_draws.txt"))) {
+            String sCurrentLine;
+
+            while ((sCurrentLine = br.readLine()) != null) {
+                lives += sCurrentLine + "\n";
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String[] lives = levels.split("#");
     }
 }
