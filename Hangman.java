@@ -1,16 +1,17 @@
-import java.util.Scanner;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Scanner;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.Arrays;
 import java.util.Random;
-import java.io.IOException;
-import java.lang.*;
-import java.io.Reader;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.InputMismatchException;
+import java.lang.*;
+import java.io.IOException;
+import java.io.Reader;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -32,11 +33,11 @@ public class Hangman {
         int chosenMenu = displayMenu();
         Hangman game = new Hangman();
         switch (chosenMenu) {
-            case 1:
-                game(game);
-                break;
-            case 2:
-                System.exit(0);
+        case 1:
+            game();
+            break;
+        case 2:
+            System.exit(0);
         }
     }
 
@@ -45,8 +46,20 @@ public class Hangman {
         System.out.println("Choose a menupoint:");
         System.out.println("1. Game");
         System.out.println("2. Quit");
-        int chosenMenuPoint = userInput.nextInt();
-        return chosenMenuPoint;
+        while (true) {
+            try {
+                int chosenMenuPoint = userInput.nextInt();
+                if (!(chosenMenuPoint == 1 || chosenMenuPoint == 2)) {
+                    System.out.println("Please choose a valid option!");
+                    continue;
+                } else {
+                    return chosenMenuPoint;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Please choose a valid option!");
+                userInput.next();
+            }
+        }
     }
 
     private static void game(Hangman game) {
@@ -73,20 +86,17 @@ public class Hangman {
         }
     }
 
-    private static void displayLeaderboards() {
-    }
-
     private static String pickWord(String fileName) {
         try {
             Stream<String> words = Files.lines(Paths.get(fileName));
             String[] result = words.toArray(String[]::new);
             int idx = new Random().nextInt(result.length);
             String pickedWord = (result[idx]);
+            words.close();
             return pickedWord;
         } catch (IOException e) {
             return "";
         }
-
     }
 
     private static void checkCharInput(String input, Hangman game) {
@@ -108,7 +118,7 @@ public class Hangman {
                         if (game.tries == 0) {
                             renderField(game);
                             System.out.println("GAME OVER");
-                            main(new String[]{});
+                            main(new String[] {});
                         }
                         break;
                     }
@@ -120,11 +130,11 @@ public class Hangman {
     private static void guessWord(String input, Hangman game) {
         if (input.equals(game.pickedWord)) {
             renderField(game);
-            main(new String[]{});
+            main(new String[] {});
         } else {
             game.tries = 0;
             renderField(game);
-            main(new String[]{});
+            main(new String[] {});
         }
     }
 
@@ -132,7 +142,7 @@ public class Hangman {
         String guessedWord = Stream.of(game.correctChars).map(e -> new String(e)).collect(Collectors.joining());
         if (guessedWord.equals(game.pickedWord)) {
             renderField(game);
-            main(new String[]{});
+            main(new String[] {});
         }
     }
 
