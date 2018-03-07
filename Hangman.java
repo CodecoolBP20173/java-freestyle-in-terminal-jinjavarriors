@@ -54,6 +54,7 @@ public class Hangman {
         game.tries = 7;
         //System.out.println(game.pickedWord);
         while (true) {
+            renderField(game);
             System.out.println("Your letter: ");
             String guessedChar = userInput.next();
             if (Character.isLetter(guessedChar.charAt(0))) {
@@ -102,6 +103,7 @@ public class Hangman {
                         game.wrongChars[i] = input.charAt(0);
                         game.tries--;
                         if (game.tries == 0) {
+                            renderField(game);
                             System.out.println("GAME OVER");
                             main(new String[]{});
                         }
@@ -138,7 +140,7 @@ public class Hangman {
         String letters = new String("");
 
         for (int i = 0; i < game.correctChars.length; i++) {
-            if (i == game.correctChars - 1) {
+            if (i == game.correctChars.length - 1) {
                 letters += game.correctChars[i];
             } else {
                 letters += game.correctChars[i] + " ";
@@ -160,7 +162,7 @@ public class Hangman {
 
         for (int i = 0; i < wrongChars.length; i++) {
             if (wrongChars[i] != '\u0000') {
-                if (i == wrongChars.length - 1 &&) {
+                if (i == wrongChars.length - 1) {
                     triedChars += wrongChars[i];
                 } else {
                     triedChars += wrongChars[i] + ",";
