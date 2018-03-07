@@ -41,6 +41,28 @@ public class Hangman {
     }
 
     private static void game() {
+        Hangman game = new Hangman();
+        game.pickedWord = pickWord("dictionary.txt");
+        game.correctChars = new char[game.pickedWord.length()];
+        for (int i = 0; i < game.correctChars.length; i++) {
+            game.correctChars[i] = '_';
+        }
+        game.tries = 7;
+        //System.out.println(game.pickedWord);
+        while (true) {
+            System.out.println("Your letter: ");
+            String guessedChar = userInput.next();
+            if (Character.isLetter(guessedChar.charAt(0))) {
+                if (!(new String(game.wrongChars).contains(guessedChar))
+                        && !(new String(game.correctChars).contains(guessedChar))) {
+                    checkCharInput(guessedChar, game);
+                } else {
+                    System.out.println("Character already used, please input another!");
+                }
+            } else {
+                System.out.println("Please input a letter from A to Z!");
+            }
+        }
     }
 
     private static void displayLeaderboards() {
