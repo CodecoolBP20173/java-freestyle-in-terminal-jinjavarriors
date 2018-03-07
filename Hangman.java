@@ -46,13 +46,12 @@ public class Hangman {
         game.tries = 7;
         //System.out.println(game.pickedWord);
         while (true) {
+            System.out.println("Your letter: ");
             String guessedChar = userInput.next();
             if (Character.isLetter(guessedChar.charAt(0))) {
                 if (!(new String(game.wrongChars).contains(guessedChar))
                         && !(new String(game.correctChars).contains(guessedChar))) {
                     checkCharInput(guessedChar, game);
-                    System.out.println(Arrays.toString(game.correctChars));
-                    System.out.println(Arrays.toString(game.wrongChars));
                 } else {
                     System.out.println("Character already used, please input another!");
                 }
@@ -94,7 +93,6 @@ public class Hangman {
                     if (game.wrongChars[i] == '\u0000') {
                         game.wrongChars[i] = input.charAt(0);
                         game.tries--;
-                        System.out.println("Tries left: " + game.tries);
                         if (game.tries == 0) {
                             System.out.println("GAME OVER");
                             main(new String[] {});
