@@ -39,7 +39,7 @@ public class Hangman {
         case 2:
             System.exit(0);
         case 3:
-            demo();
+            demo(game);
         }
 
 
@@ -247,19 +247,45 @@ public class Hangman {
             }
         }
     }
-    private static void demo(){
-        terminalCustomize.clearScreen();
-        String lines = new String("");
-        try (BufferedReader br = new BufferedReader(new FileReader("prezi.txt"))) {
-            String sCurrentLine;
-            while ((sCurrentLine = br.readLine()) != null) {
-                lines += sCurrentLine + "\n";
+    private static void demo(Hangman game){
+        while(true) {
+            String lines = new String("");
+            try (BufferedReader br = new BufferedReader(new FileReader("prezi.txt"))) {
+                String sCurrentLine;
+                while ((sCurrentLine = br.readLine()) != null) {
+                    lines += sCurrentLine + "\n";
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            lines = lines.replace("$".charAt(0),(char)27);
+            String[] slides = lines.split("#");
+            Integer choosenSlide = userInput.nextInt();
+            switch(choosenSlide) {
+            case 1:
+                terminalCustomize.clearScreen();
+                System.out.println(slides[0]);
+                break;
+            case 2:
+                terminalCustomize.clearScreen();
+                System.out.println(slides[1]);
+                break;
+            case 3:
+                terminalCustomize.clearScreen();
+                System.out.println(slides[2]);
+                break;
+            case 4:
+                terminalCustomize.clearScreen();
+                System.out.println(slides[3]);
+                break;
+            case 5:
+                terminalCustomize.clearScreen();
+                System.out.println(slides[4]);
+                break;
+            case 6:
+                game(game);
+                break;
+            }
         }
-        lines = lines.replace("$".charAt(0),(char)27);
-        String[] slides = lines.split("#");
-        System.out.println(slides[2]);
     }
 }
