@@ -80,7 +80,6 @@ fabric.properties
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 *.zip
@@ -95,3 +94,7 @@ hs_err_pid*
 target/
 
 # End of https://www.gitignore.io/api/java,java-web,intellij
+
+.DS_Store
+.idea
+.vscode
