@@ -38,7 +38,11 @@ public class Hangman {
             break;
         case 2:
             System.exit(0);
+        case 3:
+            demo();
         }
+
+
     }
 
     private static int displayMenu() {
@@ -47,10 +51,11 @@ public class Hangman {
         System.out.println("Choose a menupoint:");
         System.out.println("1. Game");
         System.out.println("2. Quit");
+        System.out.println("3. Demo");
         while (true) {
             try {
                 int chosenMenuPoint = userInput.nextInt();
-                if (!(chosenMenuPoint == 1 || chosenMenuPoint == 2)) {
+                if (!(chosenMenuPoint == 1 || chosenMenuPoint == 2 || chosenMenuPoint == 3)) {
                     System.out.println("Please choose a valid option!");
                     continue;
                 } else {
@@ -226,5 +231,20 @@ public class Hangman {
                 terminalCustomize.clearScreen();
             }
         }
+    }
+    private static void demo(){
+        terminalCustomize.clearScreen();
+        String lines = new String("");
+        try (BufferedReader br = new BufferedReader(new FileReader("prezi.txt"))) {
+            String sCurrentLine;
+            while ((sCurrentLine = br.readLine()) != null) {
+                lines += sCurrentLine + "\n";
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        lines = lines.replace("$".charAt(0),(char)27);
+        String[] slides = lines.split("#");
+        System.out.println(slides[2]);
     }
 }
