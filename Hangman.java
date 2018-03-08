@@ -72,17 +72,32 @@ public class Hangman {
         game.tries = 7;
         while (true) {
             renderField(game);
-            System.out.println("Your letter: ");
+            System.out.println("Your letter:\n(You can guess the whole word if you start with an ! sign.)");
             String guessedChar = userInput.next().toUpperCase();
-            if (Character.isLetter(guessedChar.charAt(0))) {
-                if (!(new String(game.wrongChars).contains(guessedChar))
-                        && !(new String(game.correctChars).contains(guessedChar))) {
-                    checkCharInput(guessedChar, game);
-                } else {
-                    System.out.println("Character already used, please input another!");
-                }
+            if (guessedChar.contains("!")) {
+                checkCharInput(guessedChar, game);
             } else {
-                System.out.println("Please input a letter from A to Z!");
+                if (Character.isLetter(guessedChar.charAt(guessedChar.length() - 1))) {
+                    if (!(new String(game.wrongChars).contains(guessedChar.substring(guessedChar.length() - 1)))
+                            && !(new String(game.correctChars)
+                                    .contains(guessedChar.substring(guessedChar.length() - 1)))) {
+                        checkCharInput(guessedChar, game);
+                    } else {
+                        try {
+                            System.out.println("Character already used, please input another!");
+                            Thread.sleep(1500);
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                        }
+                    }
+                } else {
+                    try {
+                        System.out.println("Please input a letter from A to Z!");
+                        Thread.sleep(1500);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                }
             }
         }
     }
@@ -102,20 +117,20 @@ public class Hangman {
 
     private static void checkCharInput(String input, Hangman game) {
         input.toUpperCase();
-        if (input.length() > 1) {
+        if (input.contains("!")) {
             guessWord(input, game);
         } else {
-            if (game.pickedWord.contains(input)) {
+            if (game.pickedWord.contains(input.substring(input.length() - 1))) {
                 for (int i = 0; i < game.pickedWord.length(); i++) {
-                    if (game.pickedWord.charAt(i) == input.charAt(0)) {
-                        game.correctChars[i] = input.charAt(0);
+                    if (game.pickedWord.charAt(i) == input.charAt(input.length() - 1)) {
+                        game.correctChars[i] = input.charAt(input.length() - 1);
                         checkWin(game);
                     }
                 }
             } else {
                 for (int i = 0; i < game.wrongChars.length; i++) {
                     if (game.wrongChars[i] == '\u0000') {
-                        game.wrongChars[i] = input.charAt(0);
+                        game.wrongChars[i] = input.charAt(input.length() - 1);
                         game.tries--;
                         if (game.tries == 0) {
                             renderField(game);
@@ -134,7 +149,7 @@ public class Hangman {
     }
 
     private static void guessWord(String input, Hangman game) {
-        if (input.equals(game.pickedWord)) {
+        if (input.substring(input.indexOf('!')).equals(game.pickedWord)) {
             terminalCustomize.clearScreen();
             renderWin();
             main(new String[] {});
@@ -199,7 +214,7 @@ public class Hangman {
 
         lives[tries] = lives[tries].replace("<guessed>", triedChars);
         lives[tries] = lives[tries].replace("<lives>", Integer.toString(tries));
-        lives[tries] = lives[tries].replace("$".charAt(0), (char)27);
+        lives[tries] = lives[tries].replace("$".charAt(0), (char) 27);
         lives[tries] = lives[tries].replace("<letters>", letters);
         System.out.println(lives[tries]);
 
