@@ -64,7 +64,6 @@ public class Hangman {
 
     private static void game(Hangman game) {
         game.pickedWord = pickWord("dictionary.txt").toUpperCase();
-        game.pickedWord = "alma".toUpperCase();
         game.correctChars = new char[game.pickedWord.length()];
         for (int i = 0; i < game.correctChars.length; i++) {
             game.correctChars[i] = '_';
@@ -73,33 +72,30 @@ public class Hangman {
         while (true) {
             renderField(game);
             System.out.println("Your letter:\n(You can guess the whole word if you start with an ! sign.)");
-            if (userInput.hasNext()) {
-                try {
-                    int inputBytes = System.in.available();
-                    System.in.skip(inputBytes);
-                } catch (IOException e) {
-                    Thread.currentThread().interrupt();
-                }
-            }
             String guessedChar = userInput.next().toUpperCase();
-            if (Character.isLetter(guessedChar.charAt(guessedChar.length() - 1))) {
-                if (!(new String(game.wrongChars).contains(guessedChar.substring(guessedChar.length() - 1)))
-                        && !(new String(game.correctChars).contains(guessedChar.substring(guessedChar.length() - 1)))) {
-                    checkCharInput(guessedChar, game);
+            if (guessedChar.contains("!")) {
+                checkCharInput(guessedChar, game);
+            } else {
+                if (Character.isLetter(guessedChar.charAt(guessedChar.length() - 1))) {
+                    if (!(new String(game.wrongChars).contains(guessedChar.substring(guessedChar.length() - 1)))
+                            && !(new String(game.correctChars)
+                                    .contains(guessedChar.substring(guessedChar.length() - 1)))) {
+                        checkCharInput(guessedChar, game);
+                    } else {
+                        try {
+                            System.out.println("Character already used, please input another!");
+                            Thread.sleep(1500);
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                        }
+                    }
                 } else {
                     try {
-                        System.out.println("Character already used, please input another!");
+                        System.out.println("Please input a letter from A to Z!");
                         Thread.sleep(1500);
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                     }
-                }
-            } else {
-                try {
-                    System.out.println("Please input a letter from A to Z!");
-                    Thread.sleep(1500);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
                 }
             }
         }
@@ -120,7 +116,7 @@ public class Hangman {
 
     private static void checkCharInput(String input, Hangman game) {
         input.toUpperCase();
-        if (input.charAt(0) == '!') {
+        if (input.contains("!")) {
             guessWord(input, game);
         } else {
             if (game.pickedWord.contains(input.substring(input.length() - 1))) {
@@ -148,7 +144,7 @@ public class Hangman {
     }
 
     private static void guessWord(String input, Hangman game) {
-        if (input.substring(1).equals(game.pickedWord)) {
+        if (input.substring(input.indexOf('!')).equals(game.pickedWord)) {
             renderField(game);
             main(new String[] {});
         } else {
