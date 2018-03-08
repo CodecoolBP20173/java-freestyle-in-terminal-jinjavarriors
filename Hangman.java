@@ -42,6 +42,7 @@ public class Hangman {
     }
 
     private static int displayMenu() {
+        terminalCustomize.clearScreen();
         System.out.println("Welcome in Hangman game!");
         System.out.println("Choose a menupoint:");
         System.out.println("1. Game");
@@ -118,7 +119,11 @@ public class Hangman {
                         game.tries--;
                         if (game.tries == 0) {
                             renderField(game);
-                            System.out.println("GAME OVER");
+                            try{
+                                Thread.sleep(2000);
+                            }catch(InterruptedException e){
+                                e.printStackTrace();
+                            }
                             main(new String[] {});
                         }
                         break;
@@ -130,11 +135,17 @@ public class Hangman {
 
     private static void guessWord(String input, Hangman game) {
         if (input.equals(game.pickedWord)) {
-            renderField(game);
+            terminalCustomize.clearScreen();
+            renderWin();
             main(new String[] {});
         } else {
             game.tries = 0;
             renderField(game);
+            try{
+                Thread.sleep(2000);
+            }catch(InterruptedException e){
+                e.printStackTrace();
+            }
             main(new String[] {});
         }
     }
@@ -191,6 +202,7 @@ public class Hangman {
         lives[tries] = lives[tries].replace("$".charAt(0), (char)27);
         lives[tries] = lives[tries].replace("<letters>", letters);
         System.out.println(lives[tries]);
+
     }
     private static void renderWin(){
         String lines = new String("");
@@ -207,7 +219,7 @@ public class Hangman {
             for(String frame:frames){
                 System.out.println(frame);
                 try{
-                    Thread.sleep(500);
+                    Thread.sleep(350);
                 }catch(InterruptedException e){
                     e.printStackTrace();
                 }
