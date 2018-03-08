@@ -142,7 +142,8 @@ public class Hangman {
     private static void checkWin(Hangman game) {
         String guessedWord = Stream.of(game.correctChars).map(e -> new String(e)).collect(Collectors.joining());
         if (guessedWord.equals(game.pickedWord)) {
-            renderField(game);
+            terminalCustomize.clearScreen();
+            renderWin();
             main(new String[] {});
         }
     }
@@ -190,5 +191,28 @@ public class Hangman {
         lives[tries] = lives[tries].replace("$".charAt(0), (char)27);
         lives[tries] = lives[tries].replace("<letters>", letters);
         System.out.println(lives[tries]);
+    }
+    private static void renderWin(){
+        String lines = new String("");
+        try (BufferedReader br = new BufferedReader(new FileReader("winman.txt"))) {
+            String sCurrentLine;
+            while ((sCurrentLine = br.readLine()) != null) {
+                lines += sCurrentLine + "\n";
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String[] frames = lines.split("#");
+        for(int i=0;i<4;i++){
+            for(String frame:frames){
+                System.out.println(frame);
+                try{
+                    Thread.sleep(500);
+                }catch(InterruptedException e){
+                    e.printStackTrace();
+                }
+                terminalCustomize.clearScreen();
+            }
+        }
     }
 }
