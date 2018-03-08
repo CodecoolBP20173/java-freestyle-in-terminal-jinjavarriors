@@ -149,7 +149,7 @@ public class Hangman {
     }
 
     private static void guessWord(String input, Hangman game) {
-        if (input.substring(input.indexOf('!')).equals(game.pickedWord)) {
+        if (input.substring(input.indexOf('!') + 1).equals(game.pickedWord)) {
             terminalCustomize.clearScreen();
             renderWin();
             main(new String[] {});
